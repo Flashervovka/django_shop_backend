@@ -1,9 +1,16 @@
+
 from rest_framework import serializers
 from ..models import Category
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    """Сериализатор для категории — пригодится, если захочешь отдавать вложенную структуру."""
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug']
+        fields = ['id', 'name', 'slug', 'description', 'image']
+
+    def get_image(self, obj):
+        if obj.image:
+            return obj.image.url
+        return None

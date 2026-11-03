@@ -1,24 +1,17 @@
+
 from django.contrib import admin
-from .models import Category, Product, Order, OrderItem
+from django.utils.html import format_html
+from .models import Category
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug')
+    list_display = ('name', 'slug', 'image_preview')
     prepopulated_fields = {'slug': ('name',)}
+    # УБРАЛИ readonly_fields = ('slug',) — это и вызывало ошибку
 
-@admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'price', 'stock', 'is_active')
-    list_filter = ('category', 'is_active')
-    search_fields = ('name', 'description')
-    prepopulated_fields = {'slug': ('name',)}
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" width="60" />', obj.image.url)
+        return 'Нет изображения'
 
-@admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'first_name', 'last_name', 'email', 'status', 'total_amount', 'created_at')
-    list_filter = ('status', 'created_at')
-    search_fields = ('email', 'first_name', 'last_name')
-
-@admin.register(OrderItem)
-class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ('order', 'product', 'quantity', 'price')
+    image_preview.short_description = 'Превью'
