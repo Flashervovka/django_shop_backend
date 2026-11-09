@@ -1,9 +1,11 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import CategoryViewSet, ProductViewSet  # импортируем классы, а не функции
 
-from .views import product_list, category_list
+router = DefaultRouter()
+router.register(r'categories', CategoryViewSet, basename='category')
+router.register(r'products', ProductViewSet, basename='product')
 
 urlpatterns = [
-    # Важно: без префикса /api/, потому что главный urls.py уже добавляет /api/
-    path('products/', product_list, name='product-list'),
-    path('categories/', category_list, name='category-list'),
+    path('', include(router.urls)),
 ]

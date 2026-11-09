@@ -1,5 +1,3 @@
-from .categories import Category
 from .products import Product
+from .categories import Category
 from .orders import Order, OrderItem
-
-__all__ = ['Category', 'Product', 'Order', 'OrderItem']

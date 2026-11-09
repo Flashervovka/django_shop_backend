@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.text import slugify
-# Используем строковые ссылки, чтобы избежать циклических импортов
 
 class Product(models.Model):
     category = models.ForeignKey('core.Category', on_delete=models.CASCADE, related_name='products')
