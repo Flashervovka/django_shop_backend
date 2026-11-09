@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Product
+from core.models import Product
 
 class ProductSerializer(serializers.ModelSerializer):
     # Добавляем читаемое имя категории, чтобы фронтенду не пришлось делать второй запрос
