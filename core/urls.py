@@ -8,4 +8,5 @@ router.register(r'products', ProductViewSet, basename='product')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('products/by-category/<slug:slug>/', ProductViewSet.as_view({'get': 'list'})),
 ]

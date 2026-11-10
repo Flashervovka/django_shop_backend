@@ -30,9 +30,13 @@ down:
 # Просмотр логов Django в реальном времени
 logs:
 	docker compose logs -f django
-# Полный сброс и пересоздание окружения (использовать редко!)
+# Полный сброс и пересоздание окружения
 reset-full:
 	@echo "Full environment reset: stopping, migrating, starting..."
 	make down
 	make full-migrate
 	make up
+
+# Пересборка образа django(например когда добавил новые пакеты в requirements)
+build-django:
+	docker compose build django
